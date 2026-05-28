@@ -889,6 +889,12 @@ html { overflow-x: hidden; max-width: 100%; }
   .quote-section { padding: 72px 6%; }
   .photo-gallery { padding: 64px 6%; }
 
+  /* Sección Nosotros: grid inline → columna única (requiere !important por style inline) */
+  #nosotros {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
   /* Footer */
   .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
 }
