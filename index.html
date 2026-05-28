@@ -1314,9 +1314,7 @@ html { overflow-x: hidden; max-width: 100%; }
 <div class="contact-form">
   <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--dark); margin-bottom: 30px;">Consultas e Inscripciones</h3>
 
-  <form id="form-consultas" action="https://formspree.io/f/xojppzrj" method="POST">
-
-    <input type="hidden" name="_subject" value="IMPORTANTE - CONSULTA WEB !!!">
+  <form id="form-consultas" action="https://n8n.automation-ia.tech/webhook/3d83d5d1-e9fb-426c-8277-c22995ec1af6" method="POST">
 
     <div class="form-group">
       <label class="form-label">Nombre y Apellido</label>
@@ -1458,16 +1456,17 @@ document.getElementById('mp-toggle').addEventListener('click', function () {
 
       form.addEventListener("submit", function(event) {
         event.preventDefault();
-        var data = new FormData(form);
+        var formData = new FormData(form);
+        var payload = Object.fromEntries(formData.entries());
         fetch(form.action, {
-          method: form.method,
-          body: data,
+          method: "POST",
+          body: JSON.stringify(payload),
           headers: {
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
           }
         }).then(response => {
           if (response.ok) {
-            statusMsg.innerHTML = "¡Gracias! Tu consulta ha sido enviada.";
+            statusMsg.innerHTML = "¡Gracias! Tu consulta ha sido enviada. Te contactaremos a la brevedad.";
             statusMsg.style.color = "var(--green-sage)";
             statusMsg.style.display = "block";
             form.reset();
