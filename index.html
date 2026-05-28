@@ -1325,6 +1325,14 @@ html { overflow-x: hidden; max-width: 100%; }
       <input type="email" name="Email" class="form-control" placeholder="tu@email.com" required>
     </div>
     <div class="form-group">
+      <label class="form-label">WhatsApp / Teléfono de contacto</label>
+      <input type="tel" id="campo-telefono" name="Telefono" class="form-control" placeholder="Ej: 5493584112491" required>
+      <small id="telefono-hint" style="display:block; margin-top:6px; font-size:0.8rem; color:#888; line-height:1.5;">
+        Incluí código de país y el 9: <strong>54 + 9 + código de área + número</strong><br>
+        Ej: <strong>5491168461572</strong> (Buenos Aires) &nbsp;·&nbsp; <strong>5493584112491</strong> (Córdoba)
+      </small>
+    </div>
+    <div class="form-group">
       <label class="form-label">Nivel de interés</label>
       <select name="Nivel" class="form-control">
         <option value="No especificado">Seleccioná un nivel...</option>
@@ -1458,6 +1466,27 @@ document.getElementById('mp-toggle').addEventListener('click', function () {
         event.preventDefault();
         var formData = new FormData(form);
         var payload = Object.fromEntries(formData.entries());
+
+        // Validar teléfono: debe ser 54 + 9 + código de área + número (13 dígitos)
+        var telRaw = (payload.Telefono || '').replace(/[\s\-\(\)\+\.]/g, '');
+        var hintEl = document.getElementById('telefono-hint');
+        if (!/^549\d{8,10}$/.test(telRaw)) {
+          hintEl.style.color = '#c0392b';
+          hintEl.style.fontWeight = '600';
+          hintEl.innerHTML = '⚠️ Formato incorrecto. El número debe incluir código de país y el 9:<br>'
+            + '<strong>54 + 9 + código de área + número</strong><br>'
+            + 'Ej: <strong>5491168461572</strong> (BsAs) &nbsp;·&nbsp; <strong>5493584112491</strong> (Cba) &nbsp;·&nbsp; <strong>5493546XXXXXXX</strong> (Villa Rumipal)';
+          document.getElementById('campo-telefono').focus();
+          return;
+        }
+        // Formato válido: guardar el número limpio (sin espacios ni símbolos)
+        payload.Telefono = telRaw;
+        // Resetear hint a su estado original
+        hintEl.style.color = '#888';
+        hintEl.style.fontWeight = 'normal';
+        hintEl.innerHTML = 'Incluí código de país y el 9: <strong>54 + 9 + código de área + número</strong><br>'
+          + 'Ej: <strong>5491168461572</strong> (Buenos Aires) &nbsp;·&nbsp; <strong>5493584112491</strong> (Córdoba)';
+
         fetch(form.action, {
           method: "POST",
           body: JSON.stringify(payload),
