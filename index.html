@@ -807,6 +807,154 @@
 .mp-vol { display: flex; align-items: center; gap: 8px; font-size: .7rem; color: #999; }
 .mp-vol input { flex: 1; accent-color: var(--deep-sky); }
 .mp-badge { text-align: center; font-size: .6rem; color: #aaa; margin-top: 10px; letter-spacing: .5px; }
+
+/* ════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — rama: mobile-responsive
+   Solo ajustes adaptativos, sin cambios de contenido
+   ════════════════════════════════════════════════════ */
+
+/* Evitar scroll horizontal global */
+html { overflow-x: hidden; max-width: 100%; }
+
+/* ── Hamburger button ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 201;
+  flex-shrink: 0;
+  position: relative;
+}
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* ── Tablet (≤ 900px) ── */
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+
+  /* Menú mobile: oculto con visibility/opacity — sin transform que cause overflow */
+  .nav-links {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(253,248,240,0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    z-index: 200;
+    list-style: none;
+    margin: 0; padding: 0;
+    /* Oculto por defecto sin transform (evita overflow) */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .nav-links.open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-links a { font-size: 1.1rem; letter-spacing: 2.5px; }
+
+  /* Hero */
+  .hero-content { padding: 100px 6% 60px; }
+  .birds-svg { opacity: 0.09; width: 200px; }
+  .c1 { width: 320px; height: 320px; }
+  .c2 { width: 180px; height: 180px; }
+  .c3 { display: none; }
+
+  /* Secciones */
+  section { padding: 72px 6%; }
+  .quote-section { padding: 72px 6%; }
+  .photo-gallery { padding: 64px 6%; }
+
+  /* Sección Nosotros: grid inline → columna única (requiere !important por style inline) */
+  #nosotros {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
+  /* Footer */
+  .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+}
+
+/* ── Mobile (≤ 600px) ── */
+@media (max-width: 600px) {
+  nav { padding: 14px 5%; }
+
+  /* Hero */
+  .hero-content { padding: 88px 5% 52px; }
+  .birds-svg { display: none; }
+  .c1 { width: 220px; height: 220px; top: -80px; right: -60px; }
+  .c2 { width: 130px; height: 130px; }
+
+  /* Botones: apilar verticalmente */
+  .btn-primary { display: block; margin-right: 0; margin-bottom: 14px; text-align: center; }
+  .btn-outline { display: block; text-align: center; }
+
+  /* Pedagogía: círculo más pequeño */
+  .ped-circle-outer { width: 240px; height: 240px; }
+  .ped-circle-inner { width: 172px; height: 172px; }
+  .ped-circle-inner .num { font-size: 2.6rem; }
+  .ped-circle-inner .label { font-size: 0.65rem; }
+
+  /* Secciones */
+  section { padding: 56px 5%; }
+  .quote-section { padding: 60px 5%; }
+  .photo-gallery { padding: 52px 5%; }
+
+  /* Quote: decorado más pequeño */
+  blockquote::before { font-size: 5rem; top: -20px; left: -8px; }
+
+  /* Gallery: filas más bajas */
+  .gallery-grid { grid-auto-rows: 160px; gap: 8px; }
+
+  /* Filosofia strip: centrado */
+  .filosofia-strip { flex-direction: column; align-items: center; text-align: center; padding: 24px 5%; gap: 12px; }
+
+  /* Footer */
+  .footer-top { flex-direction: column; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+
+  /* Music widget */
+  #music-widget { bottom: 16px; right: 16px; }
+  #mp-panel { width: calc(100vw - 48px); max-width: 280px; }
+}
+
+/* ── Móvil pequeño (≤ 400px) ── */
+@media (max-width: 400px) {
+  nav { padding: 12px 4%; }
+  .nav-brand { font-size: 0.92rem; }
+  .nav-logo .bird-icon { width: 40px; height: 40px; }
+  .hero-content { padding: 80px 4% 44px; }
+  section { padding: 48px 4%; }
+  .quote-section { padding: 52px 4%; }
+  .photo-gallery { padding: 44px 4%; }
+  .ped-circle-outer { width: 200px; height: 200px; }
+  .ped-circle-inner { width: 144px; height: 144px; }
+  .ped-circle-inner .num { font-size: 2.2rem; }
+}
 </style>
 </head>
 <body>
@@ -827,6 +975,9 @@
     <li><a href="#vida">Vida Escolar</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1331,6 +1482,32 @@ document.getElementById('mp-toggle').addEventListener('click', function () {
           statusMsg.style.display = "block";
         });
       });
+</script>
+
+<script>
+/* ── Hamburger menu — mobile-responsive branch ── */
+(function() {
+  const btn = document.getElementById('navHamburger');
+  const links = document.querySelector('.nav-links');
+  if (!btn || !links) return;
+
+  btn.addEventListener('click', function() {
+    const isOpen = links.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Cerrar al hacer clic en un enlace
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
 </script>
 </body>
 </html>
