@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instituto Juan Salvador Gaviota – Villa Rumipal</title>
+<title>Instituto Juan Salvador Gaviota – Educación Inicial, Primaria y Secundaria | Villa Rumipal, Córdoba</title>
+<meta name="description" content="Instituto Juan Salvador Gaviota en Villa Rumipal, Córdoba. Educación inicial, primaria y secundaria con Pedagogía 3000. Formación integral y consciente en las sierras de Córdoba. Inscripciones abiertas.">
+<meta name="keywords" content="Instituto Juan Salvador Gaviota, colegio Villa Rumipal, escuela Pedagogía 3000, educación inicial Córdoba, escuela sierras Córdoba, inscripciones Villa Rumipal, pedagogía alternativa Córdoba">
+<link rel="canonical" href="https://institutojuansalvadorgaviota.org/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://institutojuansalvadorgaviota.org/">
+<meta property="og:title" content="Instituto Juan Salvador Gaviota – Educación Consciente en Villa Rumipal, Córdoba">
+<meta property="og:description" content="Comunidad educativa única en Villa Rumipal, Córdoba. Pedagogía 3000 para nivel inicial, primario y secundario. Inscripciones abiertas.">
+<meta property="og:image" content="https://institutojuansalvadorgaviota.org/og-image.jpg">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Instituto Juan Salvador Gaviota">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Instituto Juan Salvador Gaviota – Villa Rumipal, Córdoba">
+<meta name="twitter:description" content="Comunidad educativa única en Villa Rumipal. Pedagogía 3000 para nivel inicial, primario y secundario.">
+<meta name="twitter:image" content="https://institutojuansalvadorgaviota.org/og-image.jpg">
+<!-- Reemplazá TU_CODIGO_AQUI con el código de Google Search Console -->
+<!-- <meta name="google-site-verification" content="TU_CODIGO_AQUI"> -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -999,7 +1015,7 @@ html { overflow-x: hidden; max-width: 100%; }
   <div class="hero-content">
     <p class="hero-eyebrow">Institución Educativa</p>
     <h1 class="hero-title">
-      Juan Salvador<br><em>Gaviota</em>
+      Instituto Juan Salvador<br><em>Gaviota</em>
     </h1>
     <p class="hero-subtitle">
       Donde cada niño aprende a volar<br>con amor, conciencia y creatividad
@@ -1314,9 +1330,7 @@ html { overflow-x: hidden; max-width: 100%; }
 <div class="contact-form">
   <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--dark); margin-bottom: 30px;">Consultas e Inscripciones</h3>
 
-  <form id="form-consultas" action="https://formspree.io/f/xojppzrj" method="POST">
-
-    <input type="hidden" name="_subject" value="IMPORTANTE - CONSULTA WEB !!!">
+  <form id="form-consultas" action="https://n8n.automation-ia.tech/webhook/3d83d5d1-e9fb-426c-8277-c22995ec1af6" method="POST">
 
     <div class="form-group">
       <label class="form-label">Nombre y Apellido</label>
@@ -1325,6 +1339,14 @@ html { overflow-x: hidden; max-width: 100%; }
     <div class="form-group">
       <label class="form-label">Email</label>
       <input type="email" name="Email" class="form-control" placeholder="tu@email.com" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">WhatsApp / Teléfono de contacto</label>
+      <input type="tel" id="campo-telefono" name="Telefono" class="form-control" placeholder="Ej: 5493584112491" required>
+      <small id="telefono-hint" style="display:block; margin-top:6px; font-size:0.8rem; color:#888; line-height:1.5;">
+        Incluí código de país y el 9: <strong>54 + 9 + código de área + número</strong><br>
+        Ej: <strong>5491168461572</strong> (Buenos Aires) &nbsp;·&nbsp; <strong>5493584112491</strong> (Córdoba)
+      </small>
     </div>
     <div class="form-group">
       <label class="form-label">Nivel de interés</label>
@@ -1458,16 +1480,38 @@ document.getElementById('mp-toggle').addEventListener('click', function () {
 
       form.addEventListener("submit", function(event) {
         event.preventDefault();
-        var data = new FormData(form);
+        var formData = new FormData(form);
+        var payload = Object.fromEntries(formData.entries());
+
+        // Validar teléfono: debe ser 54 + 9 + código de área + número (13 dígitos)
+        var telRaw = (payload.Telefono || '').replace(/[\s\-\(\)\+\.]/g, '');
+        var hintEl = document.getElementById('telefono-hint');
+        if (!/^549\d{8,10}$/.test(telRaw)) {
+          hintEl.style.color = '#c0392b';
+          hintEl.style.fontWeight = '600';
+          hintEl.innerHTML = '⚠️ Formato incorrecto. El número debe incluir código de país y el 9:<br>'
+            + '<strong>54 + 9 + código de área + número</strong><br>'
+            + 'Ej: <strong>5491168461572</strong> (BsAs) &nbsp;·&nbsp; <strong>5493584112491</strong> (Cba) &nbsp;·&nbsp; <strong>5493546XXXXXXX</strong> (Villa Rumipal)';
+          document.getElementById('campo-telefono').focus();
+          return;
+        }
+        // Formato válido: guardar el número limpio (sin espacios ni símbolos)
+        payload.Telefono = telRaw;
+        // Resetear hint a su estado original
+        hintEl.style.color = '#888';
+        hintEl.style.fontWeight = 'normal';
+        hintEl.innerHTML = 'Incluí código de país y el 9: <strong>54 + 9 + código de área + número</strong><br>'
+          + 'Ej: <strong>5491168461572</strong> (Buenos Aires) &nbsp;·&nbsp; <strong>5493584112491</strong> (Córdoba)';
+
         fetch(form.action, {
-          method: form.method,
-          body: data,
+          method: "POST",
+          body: JSON.stringify(payload),
           headers: {
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
           }
         }).then(response => {
           if (response.ok) {
-            statusMsg.innerHTML = "¡Gracias! Tu consulta ha sido enviada.";
+            statusMsg.innerHTML = "¡Gracias! Tu consulta ha sido enviada. Te contactaremos a la brevedad.";
             statusMsg.style.color = "var(--green-sage)";
             statusMsg.style.display = "block";
             form.reset();
@@ -1508,6 +1552,32 @@ document.getElementById('mp-toggle').addEventListener('click', function () {
     });
   });
 })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["EducationalOrganization", "LocalBusiness"],
+  "name": "Instituto Juan Salvador Gaviota",
+  "url": "https://institutojuansalvadorgaviota.org/",
+  "description": "Comunidad educativa en Villa Rumipal, Córdoba. Pedagogía 3000 para nivel inicial, primario y secundario. Formación integral, consciente y creativa.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rogelio Gómez 78",
+    "addressLocality": "Villa Rumipal",
+    "addressRegion": "Córdoba",
+    "addressCountry": "AR"
+  },
+  "telephone": "+549358411-2491",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "https://www.instagram.com/inst.juansalvadorgaviota"
+  ]
+}
 </script>
 </body>
 </html>
