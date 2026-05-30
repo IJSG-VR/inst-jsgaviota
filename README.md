@@ -98,6 +98,47 @@ Certificado gestionado automáticamente por Cloudflare (Google Trust Services). 
 
 ---
 
+## Posicionamiento SEO
+
+### Archivos generados
+
+| Archivo | Descripción |
+|---|---|
+| `robots.txt` | Permite el rastreo completo e indica la ubicación del sitemap |
+| `sitemap.xml` | Mapa del sitio enviado a Google Search Console |
+| `og-image.jpg` | Imagen 1200×630px para preview en redes sociales y WhatsApp |
+
+### Meta tags implementados en `index.html`
+
+| Tag | Valor |
+|---|---|
+| `<title>` | Incluye nombre del instituto, niveles educativos y ubicación |
+| `meta description` | Descripción de 160 caracteres con keywords principales |
+| `meta keywords` | Términos clave del instituto y la zona |
+| `link canonical` | URL canónica para evitar contenido duplicado |
+| Open Graph (`og:*`) | Título, descripción, imagen, locale, tipo y nombre del sitio |
+| Twitter Card | `summary_large_image` con título, descripción e imagen |
+| Schema.org JSON-LD | `EducationalOrganization` + `LocalBusiness` con dirección, teléfono y horario |
+
+### Estado de configuración externa
+
+| Herramienta | Estado |
+|---|---|
+| Google Search Console | ✅ Verificado — sitemap enviado y procesado (1 página descubierta) |
+| sitemap.xml | ✅ Procesado correctamente por Google |
+| Facebook Sharing Debugger | ✅ OG tags detectados correctamente |
+| Google Business Profile | ⏳ Perfil creado — verificación de propiedad pendiente |
+
+### Palabras clave objetivo
+
+- `Instituto Juan Salvador Gaviota`
+- `colegio Villa Rumipal`
+- `escuela Pedagogía 3000 Córdoba`
+- `educación inicial primaria secundaria Villa Rumipal`
+- `escuela alternativa sierras Córdoba`
+
+---
+
 ## Actualizaciones futuras
 
 Para subir cambios al sitio, desde la carpeta del proyecto:
