@@ -124,10 +124,19 @@ Certificado gestionado automáticamente por Cloudflare (Google Trust Services). 
 
 | Herramienta | Estado |
 |---|---|
-| Google Search Console | ✅ Verificado — sitemap enviado y procesado (1 página descubierta) |
-| sitemap.xml | ✅ Procesado correctamente por Google |
-| Facebook Sharing Debugger | ✅ OG tags detectados correctamente |
+| Google Search Console | ✅ Verificado vía DNS (Cloudflare) — sitemap enviado y procesado |
+| sitemap.xml | ✅ Procesado correctamente (1 página descubierta) |
+| Facebook Sharing Debugger | ✅ OG tags detectados sin errores |
+| Google Analytics GA4 | ✅ Activo — ID: `G-1HCVSGVRF7` |
 | Google Business Profile | ⏳ Perfil creado — verificación de propiedad pendiente |
+
+### Analytics
+
+- **Plataforma:** Google Analytics 4
+- **ID de medición:** `G-1HCVSGVRF7`
+- **Cuenta:** ijsgaviota@gmail.com
+- El script está embebido en el `<head>` de `index.html`
+- Verificar en: analytics.google.com → Informes → Tiempo real
 
 ### Palabras clave objetivo
 
@@ -137,6 +146,51 @@ Certificado gestionado automáticamente por Cloudflare (Google Trust Services). 
 - `educación inicial primaria secundaria Villa Rumipal`
 - `escuela alternativa sierras Córdoba`
 
+### Checklist completo SEO (Guía Google)
+
+| Ítem | Estado |
+|---|---|
+| Título único con keywords y ubicación | ✅ |
+| Meta description | ✅ |
+| URL canónica | ✅ |
+| Open Graph (Facebook / WhatsApp / LinkedIn) | ✅ |
+| Twitter Card | ✅ |
+| Schema.org JSON-LD (institución + negocio local) | ✅ |
+| Alt text en todas las imágenes (17/17) | ✅ |
+| Links internos con texto descriptivo | ✅ |
+| Links del footer funcionales (niveles, dirección, teléfono, email) | ✅ |
+| Email del footer con `mailto:` | ✅ |
+| robots.txt | ✅ |
+| sitemap.xml enviado a Google | ✅ |
+| Google Search Console | ✅ |
+| Google Analytics GA4 | ✅ |
+| Diseño mobile responsive | ✅ |
+| HTTPS activo | ✅ |
+| Google Business Profile | ⏳ verificación pendiente |
+
+---
+
+## Formulario de contacto (rama `form-n8n-whatsapp`)
+
+El formulario de la sección Contacto envía los datos a un webhook de **n8n** que notifica por **WhatsApp Business** al número del instituto.
+
+### Flujo
+
+```
+Usuario completa el form → POST al webhook n8n → n8n envía template WhatsApp → +54 9 3546 51-7331
+```
+
+### Configuración n8n
+
+- **Webhook URL:** `https://n8n.automation-ia.tech/webhook/3d83d5d1-e9fb-426c-8277-c22995ec1af6`
+- **Template WhatsApp:** `ijsgaviota_form` (idioma: `es_AR`)
+- **Cuenta WhatsApp Business:** +54 9 3546 51-7331 (Tuenti N8n)
+- **Parámetros del template (en orden):** `nombre`, `email`, `telefono`, `nivel`, `mensaje`
+
+### Estado del template
+
+El template original usaba **variables nombradas** (`{{nombre}}`, `{{email}}`...) que no son compatibles con n8n WhatsApp node v1. Se envió un nuevo template con **variables numeradas** (`{{1}}`, `{{2}}`...) para revisión de Meta. Estado: ⏳ pendiente de aprobación (~24 hs).
+
 ---
 
 ## Actualizaciones futuras
@@ -145,8 +199,8 @@ Para subir cambios al sitio, desde la carpeta del proyecto:
 
 ```bash
 # Desplegar a producción
-wrangler pages deploy . --project-name inst-jsgaviota --branch main
+wrangler pages deploy . --project-name inst-jsgaviota --branch main --commit-dirty=true
 
 # Desplegar como preview (sin afectar producción)
-wrangler pages deploy . --project-name inst-jsgaviota --branch nombre-de-prueba
+wrangler pages deploy . --project-name inst-jsgaviota --branch nombre-de-prueba --commit-dirty=true
 ```
